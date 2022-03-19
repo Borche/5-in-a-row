@@ -9,8 +9,10 @@ public class Board {
   private static final int EMPTY_MARKER = -1;
 
   private int[][] board;
+  private final int quantityToWin;
 
-  public Board() {
+  public Board(int quantityToWin) {
+    this.quantityToWin = quantityToWin;
     initBoard();
   }
 
@@ -59,7 +61,7 @@ public class Board {
     for (int row = pos.row() - 1, col = pos.col() + 1; row >= 0 && col < NUM_COL; row--, col++) {
       if (board[row][col] == markerId) count++;
     }
-    return count >= 5;
+    return count >= quantityToWin;
   }
 
   private boolean checkNorthWestSouthEast(int markerId, Position pos) {
@@ -72,7 +74,7 @@ public class Board {
         row++, col++) {
       if (board[row][col] == markerId) count++;
     }
-    return count >= 5;
+    return count >= quantityToWin;
   }
 
   private boolean checkWestEast(int markerId, Position pos) {
@@ -83,7 +85,7 @@ public class Board {
     for (int col = pos.col() + 1; col < NUM_COL; col++) {
       if (board[pos.row()][col] == markerId) count++;
     }
-    return count >= 5;
+    return count >= quantityToWin;
   }
 
   private boolean checkNorthSouth(int markerId, Position pos) {
@@ -94,6 +96,6 @@ public class Board {
     for (int row = pos.row() - 1; row >= 0; row--) {
       if (board[row][pos.col()] == markerId) count++;
     }
-    return count >= 5;
+    return count >= quantityToWin;
   }
 }

@@ -5,26 +5,25 @@ import java.util.Scanner;
 
 public class Game {
   private final Board board;
-  private int currentPlayer;
+  private int currentPlayer = -1;
 
   public Game() {
-    this.board = new Board();
+    this.board = new Board(5);
   }
 
   public void start() {
-    while (true) {
+    System.out.println("Starting new game...");
+    boolean isWin = false;
+
+    while (!isWin) {
+      updateCurrentPlayer();
       board.print();
       Position newPos = getPlayerInput();
-      boolean isWin = board.placeMarker(currentPlayer, newPos);
-
-      if (isWin) {
-        board.print();
-        System.out.printf("Player %s wins!", currentPlayer);
-        System.exit(0);
-      }
-
-      updateCurrentPlayer();
+      isWin = board.placeMarker(currentPlayer, newPos);
     }
+
+    board.print();
+    System.out.printf("Player %s wins!\n", currentPlayer);
   }
 
   private void updateCurrentPlayer() {
